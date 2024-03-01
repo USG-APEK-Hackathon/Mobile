@@ -1,12 +1,7 @@
-import 'dart:async';
-import 'dart:convert' show json;
-
 import 'package:apex_mobile/src/app/data/google_repository.dart';
 import 'package:auto_route/auto_route.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:http/http.dart' as http;
 
 const List<String> scopes = <String>[
   'email',
@@ -37,10 +32,6 @@ class _SignInViewState extends State<SignInView> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            'You are not currently signed in.',
-            style: const TextStyle(fontSize: 20.0),
-          ),
           Center(
             child: ElevatedButton(
               onPressed: () {
