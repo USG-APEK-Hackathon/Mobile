@@ -1,4 +1,6 @@
 import 'package:apex_mobile/src/app/data/google_repository.dart';
+import 'package:apex_mobile/src/app/presentation/face_id_view.dart';
+import 'package:apex_mobile/src/config/router/app_router.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -34,7 +36,9 @@ class _SignInViewState extends State<SignInView> {
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text("Logged in"),
                   ));
-                }).catchError((e) {
+                }).catchError((e) async {
+                  await context.router.push(const FaceIdRoute());
+                  if (!mounted) return;
                   ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
                     content: Text("Logged in"),
                   ));

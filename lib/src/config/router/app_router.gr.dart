@@ -15,13 +15,33 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    FaceIdRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const FaceIdView(),
+      );
+    },
     SignInRoute.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const SignInView(),
       );
-    }
+    },
   };
+}
+
+/// generated route for
+/// [FaceIdView]
+class FaceIdRoute extends PageRouteInfo<void> {
+  const FaceIdRoute({List<PageRouteInfo>? children})
+      : super(
+          FaceIdRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'FaceIdRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
