@@ -1,11 +1,20 @@
+import 'dart:io';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:image_picker/image_picker.dart';
 
 @RoutePage()
-class FaceIdView extends StatelessWidget {
+class FaceIdView extends StatefulWidget {
   const FaceIdView({super.key});
 
+  @override
+  State<FaceIdView> createState() => _FaceIdViewState();
+}
+
+class _FaceIdViewState extends State<FaceIdView> {
+  File? _image;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -30,9 +39,11 @@ class FaceIdView extends StatelessWidget {
           const Spacer(),
           Center(
             child: ElevatedButton(
-              onPressed: () {
+              onPressed: () async {
                 //Take image from camera
-                
+                final image =
+                    await ImagePicker().pickImage(source: ImageSource.camera);
+
                 //Send image to server for face recognition
               },
               style: ButtonStyle(
