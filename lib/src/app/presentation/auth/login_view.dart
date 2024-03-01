@@ -1,17 +1,7 @@
 import 'package:apex_mobile/src/app/data/google_repository.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:google_sign_in/google_sign_in.dart';
-
-const List<String> scopes = <String>[
-  'email',
-  'https://www.googleapis.com/auth/contacts.readonly',
-];
-
-GoogleSignIn _googleSignIn = GoogleSignIn(
-  scopes: scopes,
-);
-// #enddocregion Initialize
+import 'package:flutter_svg/flutter_svg.dart';
 
 @RoutePage()
 class SignInView extends StatefulWidget {
@@ -32,6 +22,11 @@ class _SignInViewState extends State<SignInView> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
+          SvgPicture.asset(
+            'assets/logo_c_en.svg',
+            width: 220,
+          ),
+          const SizedBox(height: 20),
           Center(
             child: ElevatedButton(
               onPressed: () {
