@@ -14,6 +14,7 @@ class App extends ConsumerWidget {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         fontFamily: 'TTHoves',
+        scaffoldBackgroundColor: const Color(0xFF022964),
         useMaterial3: true,
       ),
       routerConfig: ref.watch(appRouter).config(), /// The router configuration

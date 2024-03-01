@@ -1,5 +1,8 @@
+// ignore_for_file: deprecated_member_use
+
 import 'dart:io';
 
+import 'package:apex_mobile/src/config/router/app_router.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
@@ -19,117 +22,173 @@ class _FaceIdViewState extends State<FaceIdView> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: const Color(0xFF022964),
       appBar: AppBar(
-        title: const Text('Face Recognition'),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 20,
-            ),
-            child: SvgPicture.asset(
-              'assets/logo_c_en.svg',
-              width: 80,
-            ),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        forceMaterialTransparency: true,
+        leading: IconButton(
+          onPressed: () {
+            context.router.pop();
+          },
+          icon: const Icon(
+            Icons.arrow_back_ios_new,
+            color: Colors.white,
           ),
-        ],
+        ),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          const Spacer(),
-          Center(
-            child: ElevatedButton(
-              onPressed: () async {
-                //Take image from camera
-                final image = await ImagePicker().pickImage(
-                  source: ImageSource.camera,
-                );
-
-                if (image != null) {
-                  setState(() {
-                    _image = File(image.path);
-                  });
-                }
-
-                //Send image to server for face recognition
-              },
-              style: ButtonStyle(
-                backgroundColor: _image != null
-                    ? MaterialStateProperty.all<Color>(Colors.green)
-                    : MaterialStateProperty.all<Color>(Colors.white),
-                elevation: MaterialStateProperty.all<double>(2),
-                foregroundColor: _image != null
-                    ? MaterialStateProperty.all<Color>(Colors.white)
-                    : MaterialStateProperty.all<Color>(Colors.black),
-                maximumSize:
-                    MaterialStateProperty.all<Size>(const Size(140, 50)),
-                minimumSize:
-                    MaterialStateProperty.all<Size>(const Size(140, 50)),
-              ),
-              child: const Row(
-                children: [
-                  Icon(
-                    Icons.face_retouching_natural,
-                    size: 45,
-                  ),
-                  Icon(
-                    Icons.camera_alt,
-                    size: 45,
-                  ),
-                ],
+      body: SafeArea(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Padding(
+              padding: EdgeInsets.all(10.0),
+              child: Text(
+                "Face Verification",
+                style: TextStyle(
+                  fontSize: 30,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
-          ),
-          const Spacer(),
-          //Checkbox for terms and conditions
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Checkbox(
-                value: _termsAndConditions,
-                onChanged: (value) {
-                  setState(() {
-                    _termsAndConditions = value!;
-                  });
-                },
+            const Padding(
+              padding: EdgeInsets.only(
+                left: 10.0,
+                right: 30,
               ),
-              RichText(
-                text: const TextSpan(
-                  text: 'I agree to the ',
-                  style: TextStyle(color: Colors.black),
-                  children: [
-                    TextSpan(
-                      text: 'Terms and Conditions',
-                      style: TextStyle(
-                        color: Colors.blue,
-                      ),
+              child: Text(
+                "Proof of identity is required to continue. Please take a picture of your face.",
+                style:
+                    TextStyle(fontSize: 18, color: Colors.white, height: 1.1),
+              ),
+            ),
+            const Spacer(),
+            Center(
+              child: _image != null
+                  ? CircleAvatar(
+                      radius: 100,
+                      backgroundImage: FileImage(_image!),
+                    )
+                  : SvgPicture.asset(
+                      'assets/face.svg',
+                      width: 200,
+                      color: Colors.white,
                     ),
-                  ],
-                ),
-              ),
-            ],
-          ),
-          Padding(
-            padding: const EdgeInsets.only(bottom: 40, left: 20, right: 20),
-            child: ElevatedButton(
-              onPressed: () {
-                context.router.pop();
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
-                elevation: MaterialStateProperty.all<double>(2),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                maximumSize: MaterialStateProperty.all<Size>(
-                    Size(MediaQuery.of(context).size.width, 50)),
-                minimumSize: MaterialStateProperty.all<Size>(
-                  Size(MediaQuery.of(context).size.width, 50),
-                ),
-              ),
-              child: const Text("Next"),
             ),
-          ),
-        ],
+            const SizedBox(height: 40),
+            Center(
+              child: ElevatedButton(
+                style: ButtonStyle(
+                  backgroundColor: _image != null
+                      ? MaterialStateProperty.all<Color>(Colors.green)
+                      : MaterialStateProperty.all<Color>(Colors.white),
+                  elevation: MaterialStateProperty.all<double>(2),
+                  foregroundColor: _image != null
+                      ? MaterialStateProperty.all<Color>(Colors.white)
+                      : MaterialStateProperty.all<Color>(Colors.black),
+                  maximumSize: MaterialStateProperty.all<Size>(
+                    const Size(140, 50),
+                  ),
+                  minimumSize: MaterialStateProperty.all<Size>(
+                    const Size(140, 50),
+                  ),
+                  shape: MaterialStateProperty.all<OutlinedBorder>(
+                    RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                  ),
+                ),
+                onPressed: () async {
+                  //Take image from camera
+                  final image = await ImagePicker().pickImage(
+                    source: ImageSource.camera,
+                  );
+
+                  if (image != null) {
+                    setState(() {
+                      _image = File(image.path);
+                    });
+                  }
+
+                  //Send image to server for face recognition
+                },
+                child: const Text("Take a picture"),
+              ),
+            ),
+            const Spacer(),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Checkbox(
+                  value: _termsAndConditions,
+                  overlayColor: MaterialStateProperty.all<Color>(Colors.white),
+                  checkColor: const Color(0xFF022964),
+                  fillColor: _termsAndConditions
+                      ? MaterialStateProperty.all<Color>(Colors.white)
+                      : MaterialStateProperty.all<Color>(Colors.transparent),
+                  side: BorderSide(
+                    color: Colors.white,
+                  ),
+                  onChanged: (value) {
+                    setState(() {
+                      _termsAndConditions = value!;
+                    });
+                  },
+                ),
+                RichText(
+                  text: const TextSpan(
+                    text: 'I agree to the ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 16,
+                    ),
+                    children: [
+                      TextSpan(
+                        text: 'Terms and Conditions',
+                        style: TextStyle(
+                          color: Colors.white,
+                          decoration: TextDecoration.underline,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(bottom: 40, left: 20, right: 20, top: 10),
+              child: ElevatedButton(
+                onPressed: () {
+                  if (_termsAndConditions) {
+                    context.router.push(const MainRoute());
+                  } else {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                        content: Text("Please agree to the terms and conditions"),
+                      ),
+                    );
+                  }
+                },
+                style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all<Color>(Colors.white),
+                  elevation: MaterialStateProperty.all<double>(2),
+                  foregroundColor:
+                      MaterialStateProperty.all<Color>(Colors.black),
+                  maximumSize: MaterialStateProperty.all<Size>(
+                      Size(MediaQuery.of(context).size.width, 50)),
+                  minimumSize: MaterialStateProperty.all<Size>(
+                    Size(MediaQuery.of(context).size.width, 50),
+                  ),
+                ),
+                child: const Text("Next"),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

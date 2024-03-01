@@ -1,5 +1,6 @@
 import 'package:apex_mobile/src/app/presentation/auth/login_view.dart';
 import 'package:apex_mobile/src/app/presentation/face_id_view.dart';
+import 'package:apex_mobile/src/app/presentation/main_view.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -29,6 +30,9 @@ class AppRouter extends _$AppRouter {
         ),
         AutoRoute(
           page: FaceIdRoute.page,
+        ),
+        AutoRoute(
+          page: MainRoute.page,
         ),
       ];
 }
