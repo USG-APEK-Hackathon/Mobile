@@ -10,8 +10,10 @@ class App extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     return MaterialApp.router(
       title: 'Apex Mobile MVP',
+      debugShowCheckedModeBanner: false,
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+        fontFamily: 'TTHoves',
         useMaterial3: true,
       ),
       routerConfig: ref.watch(appRouter).config(), /// The router configuration
