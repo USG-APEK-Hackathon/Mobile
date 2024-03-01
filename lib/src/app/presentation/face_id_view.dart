@@ -11,10 +11,10 @@ class FaceIdView extends StatelessWidget {
       appBar: AppBar(
         title: const Text('Face Recognition'),
       ),
-      body: Column(
+      body: const Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          const Text('Face ID'),
+          Text('Face ID'),
         ],
       ),
     );
