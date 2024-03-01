@@ -128,7 +128,7 @@ class _FaceIdViewState extends State<FaceIdView> {
                   fillColor: _termsAndConditions
                       ? MaterialStateProperty.all<Color>(Colors.white)
                       : MaterialStateProperty.all<Color>(Colors.transparent),
-                  side: BorderSide(
+                  side: const BorderSide(
                     color: Colors.white,
                   ),
                   onChanged: (value) {
