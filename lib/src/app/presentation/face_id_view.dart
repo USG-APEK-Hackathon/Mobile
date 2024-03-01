@@ -9,7 +9,7 @@ class FaceIdView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Face ID'),
+        title: const Text('Face Recognition'),
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.center,
