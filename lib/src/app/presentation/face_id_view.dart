@@ -15,6 +15,7 @@ class FaceIdView extends StatefulWidget {
 
 class _FaceIdViewState extends State<FaceIdView> {
   File? _image;
+  bool _termsAndConditions = false;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -41,15 +42,26 @@ class _FaceIdViewState extends State<FaceIdView> {
             child: ElevatedButton(
               onPressed: () async {
                 //Take image from camera
-                final image =
-                    await ImagePicker().pickImage(source: ImageSource.camera);
+                final image = await ImagePicker().pickImage(
+                  source: ImageSource.camera,
+                );
+
+                if (image != null) {
+                  setState(() {
+                    _image = File(image.path);
+                  });
+                }
 
                 //Send image to server for face recognition
               },
               style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
+                backgroundColor: _image != null
+                    ? MaterialStateProperty.all<Color>(Colors.green)
+                    : MaterialStateProperty.all<Color>(Colors.white),
                 elevation: MaterialStateProperty.all<double>(2),
-                foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
+                foregroundColor: _image != null
+                    ? MaterialStateProperty.all<Color>(Colors.white)
+                    : MaterialStateProperty.all<Color>(Colors.black),
                 maximumSize:
                     MaterialStateProperty.all<Size>(const Size(140, 50)),
                 minimumSize:
@@ -70,8 +82,36 @@ class _FaceIdViewState extends State<FaceIdView> {
             ),
           ),
           const Spacer(),
+          //Checkbox for terms and conditions
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Checkbox(
+                value: _termsAndConditions,
+                onChanged: (value) {
+                  setState(() {
+                    _termsAndConditions = value!;
+                  });
+                },
+              ),
+              RichText(
+                text: const TextSpan(
+                  text: 'I agree to the ',
+                  style: TextStyle(color: Colors.black),
+                  children: [
+                    TextSpan(
+                      text: 'Terms and Conditions',
+                      style: TextStyle(
+                        color: Colors.blue,
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ],
+          ),
           Padding(
-            padding: const EdgeInsets.only(bottom: 40),
+            padding: const EdgeInsets.only(bottom: 40, left: 20, right: 20),
             child: ElevatedButton(
               onPressed: () {
                 context.router.pop();
@@ -80,10 +120,11 @@ class _FaceIdViewState extends State<FaceIdView> {
                 backgroundColor: MaterialStateProperty.all<Color>(Colors.white),
                 elevation: MaterialStateProperty.all<double>(2),
                 foregroundColor: MaterialStateProperty.all<Color>(Colors.black),
-                maximumSize:
-                    MaterialStateProperty.all<Size>(const Size(140, 50)),
-                minimumSize:
-                    MaterialStateProperty.all<Size>(const Size(140, 50)),
+                maximumSize: MaterialStateProperty.all<Size>(
+                    Size(MediaQuery.of(context).size.width, 50)),
+                minimumSize: MaterialStateProperty.all<Size>(
+                  Size(MediaQuery.of(context).size.width, 50),
+                ),
               ),
               child: const Text("Next"),
             ),
