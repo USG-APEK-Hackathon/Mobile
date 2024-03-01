@@ -14,5 +14,26 @@ abstract class _$AppRouter extends RootStackRouter {
   _$AppRouter({super.navigatorKey});
 
   @override
-  final Map<String, PageFactory> pagesMap = {};
+  final Map<String, PageFactory> pagesMap = {
+    LoginRoute.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const LoginView(),
+      );
+    }
+  };
+}
+
+/// generated route for
+/// [LoginView]
+class LoginRoute extends PageRouteInfo<void> {
+  const LoginRoute({List<PageRouteInfo>? children})
+      : super(
+          LoginRoute.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'LoginRoute';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
