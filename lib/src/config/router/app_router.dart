@@ -1,4 +1,5 @@
 import 'package:apex_mobile/src/app/presentation/auth/login_view.dart';
+import 'package:apex_mobile/src/app/presentation/chat_view.dart';
 import 'package:apex_mobile/src/app/presentation/face_id_view.dart';
 import 'package:apex_mobile/src/app/presentation/main_view.dart';
 import 'package:auto_route/auto_route.dart';
@@ -34,5 +35,8 @@ class AppRouter extends _$AppRouter {
         AutoRoute(
           page: MainRoute.page,
         ),
+        AutoRoute(
+          page: ChatRoute.page,
+        )
       ];
 }

@@ -1,5 +1,6 @@
 import 'package:apex_mobile/src/app/data/model/fit.dart';
 import 'package:apex_mobile/src/config/client/client.dart';
+import 'package:apex_mobile/src/config/router/app_router.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
@@ -12,6 +13,12 @@ class MainView extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFF022964),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          AutoRouter.of(context).push(const ChatRoute());
+        },
+        child: const Icon(Icons.chat),
+      ),
       appBar: AppBar(
         backgroundColor: Colors.transparent,
         elevation: 0,
@@ -127,8 +134,8 @@ class MainViewBody extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 width: 100,
                 height: 80,
                 decoration: BoxDecoration(
@@ -157,8 +164,8 @@ class MainViewBody extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 width: 100,
                 height: 80,
                 decoration: BoxDecoration(
@@ -187,8 +194,8 @@ class MainViewBody extends StatelessWidget {
                 ),
               ),
               Container(
-                padding: const EdgeInsets.symmetric(
-                    horizontal: 10, vertical: 10),
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
                 width: 100,
                 height: 80,
                 decoration: BoxDecoration(
