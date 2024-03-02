@@ -48,11 +48,11 @@ To get a local copy up and running, follow these simple steps:
    ```sh
    git clone https://github.com/USG-APEK-Hackathon/Mobile.git
 
-2. cd Mobile - go to root directory of project
+2. `cd Mobile` - go to root directory of project
 
-3. flutter pub get - Install dependecies
+3. `flutter pub get` - Install dependecies
 
-4. flutter run - Run the project (Any emulator, Simulator or connected debug Device needed.)
+4. `flutter run` - Run the project (Any emulator, Simulator or connected debug Device needed.)
 
 Dependencies
 This project leverages the following key dependencies:
