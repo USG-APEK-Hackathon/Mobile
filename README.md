@@ -7,11 +7,8 @@ Welcome to our MUSG Hackathon Mobile project, a cutting-edge Flutter application
 - [Introduction](#introduction)
 - [Project Structure](#project-structure)
 - [Getting Started](#getting-started)
-- [Features](#features)
 - [Dependencies](#dependencies)
-- [How to Contribute](#how-to-contribute)
-- [License](#license)
-- [Contact](#contact)
+
 
 ## Introduction
 
