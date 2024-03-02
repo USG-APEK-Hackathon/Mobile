@@ -166,19 +166,19 @@ class _FaceIdViewState extends State<FaceIdView> {
               child: ElevatedButton(
                 onPressed: () async {
                   if (_termsAndConditions) {
-                    final client = DioClient();
-                    final formData = FormData.fromMap({
-                      'image': await MultipartFile.fromFile(
-                        _image!.path,
-                        filename: 'face.jpg',
-                      ),
-                    });
+                    // final client = DioClient();
+                    // final formData = FormData.fromMap({
+                    //   'image': await MultipartFile.fromFile(
+                    //     _image!.path,
+                    //     filename: 'face.jpg',
+                    //   ),
+                    // });
 
-                    await client.uploadImageWithFormData(
-                      '/first-step/',
-                      formData,
-                    );
-                    if (mounted)
+                    // await client.uploadImageWithFormData(
+                    //   '/first-step/',
+                    //   formData,
+                    // );
+                    // if (mounted)
                       context.router.push(
                         const MainRoute(),
                       );

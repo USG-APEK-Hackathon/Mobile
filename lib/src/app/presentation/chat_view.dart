@@ -28,6 +28,8 @@ class _ChatViewState extends ConsumerState<ChatView> {
 
     ref.read(messageControllerProvider.notifier).addMessage(text);
 
+    ref.read(messageControllerProvider.notifier).getMessage(text);
+
     // await ref.read(chatControllerProvider.notifier).sendMessage(text);
   }
 
@@ -45,8 +47,8 @@ class _ChatViewState extends ConsumerState<ChatView> {
 
   @override
   Widget build(BuildContext context) {
-    _panelHeightOpen = MediaQuery.of(context).size.height * .85;
     return Scaffold(
+      backgroundColor: Colors.grey.shade100,
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 2,
@@ -83,9 +85,8 @@ class _ChatViewState extends ConsumerState<ChatView> {
                     return Column(
                       children: [
                         _buildRecommend(
-                            "I'm searching for a special gift for my loved one. Can you recommend a high-performance and stylish smartphone?"),
-                        _buildRecommend(
-                            "I'm looking for a budget-friendly, quality phone for my mom. What model do you recommend?")
+                          "Minimum əmək haqqı alıram. Sağlamlıqla bağlı problemlerim var. Həyat siğortası haqqında məlumat ala bilərəm?",
+                        ),
                       ],
                     );
                   }
@@ -97,20 +98,19 @@ class _ChatViewState extends ConsumerState<ChatView> {
                   final messages = buildRef.watch(messageControllerProvider);
                   return Flexible(
                     child: ListView.builder(
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 8,
-                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 8),
                       reverse: true,
                       itemCount: messages.length,
-                      itemBuilder: (_, int index) => messages[index],
+                      itemBuilder: (_, int index) => Align(
+                        alignment: messages[index]
+                            .alignment, // Align messages to the right
+                        child: messages[index],
+                      ),
                     ),
                   );
                 },
               ),
-              Container(
-                decoration: BoxDecoration(color: Theme.of(context).cardColor),
-                child: _buildTextComposer(),
-              ),
+              _buildTextComposer(),
             ],
           ),
         ],
@@ -151,34 +151,40 @@ class _ChatViewState extends ConsumerState<ChatView> {
   Widget _buildTextComposer() {
     return IconTheme(
       data: const IconThemeData(
-        color: AppColors.primary,
+        color: AppColors.primary, // Consider adjusting if necessary
       ),
       child: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 10),
-        padding: const EdgeInsets.symmetric(horizontal: 10.0),
+        margin: const EdgeInsets.symmetric(horizontal: 8.0, vertical: 8),
+        padding: const EdgeInsets.only(
+          left: 12,
+          right: 10,
+        ),
         decoration: BoxDecoration(
-          border: Border.all(color: AppColors.primary, width: 2),
-          borderRadius: BorderRadius.circular(15),
+          color: Colors.white, // Background color of the text field
+          boxShadow: [
+            BoxShadow(
+              color: Colors.black.withOpacity(0.2),
+              blurRadius: 8,
+              offset: const Offset(0, 2),
+            ),
+          ],
+          borderRadius: BorderRadius.circular(25),
         ),
         child: Row(
           children: <Widget>[
             Flexible(
               child: TextField(
-                onTapOutside: (event) =>
-                    FocusManager.instance.primaryFocus!.unfocus(),
                 controller: _textController,
                 onSubmitted: _handleSubmitted,
-                decoration: const InputDecoration.collapsed(
+                decoration: InputDecoration.collapsed(
                   hintText: 'Write your message',
+                  hintStyle: TextStyle(color: Colors.grey.shade500),
                 ),
               ),
             ),
-            Container(
-              margin: const EdgeInsets.symmetric(horizontal: 4.0),
-              child: IconButton(
-                icon: const Icon(Icons.send),
-                onPressed: () => _handleSubmitted(_textController.text),
-              ),
+            IconButton(
+              icon: const Icon(Icons.send, color: AppColors.primary),
+              onPressed: () => _handleSubmitted(_textController.text),
             ),
           ],
         ),
@@ -189,15 +195,44 @@ class _ChatViewState extends ConsumerState<ChatView> {
 
 class ChatMessage extends StatelessWidget {
   final String text;
+  final Alignment alignment;
 
-  const ChatMessage({super.key, required this.text});
+  const ChatMessage({
+    super.key,
+    required this.text,
+    this.alignment = Alignment.centerRight,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0),
-      child: ListTile(
-        title: Text(text),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      margin: const EdgeInsets.symmetric(vertical: 10),
+      decoration: BoxDecoration(
+        color: switch (alignment) {
+          Alignment.centerRight => AppColors.primary,
+          Alignment.centerLeft => Colors.white,
+          _ => AppColors.primary,
+        },
+        borderRadius: BorderRadius.circular(10),
+        boxShadow: const [
+          BoxShadow(
+            color: Colors.black26,
+            blurRadius: 5,
+            offset: Offset(0, 2),
+          ),
+        ],
+      ),
+      child: Text(
+        text,
+        style: TextStyle(
+          color: switch (alignment) {
+            Alignment.centerRight => Colors.white,
+            Alignment.centerLeft => AppColors.primary,
+            _ => AppColors.primary,
+          },
+          fontSize: 16,
+        ),
       ),
     );
   }

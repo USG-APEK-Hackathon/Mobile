@@ -2,6 +2,7 @@ import 'package:apex_mobile/src/app/data/model/fit.dart';
 import 'package:apex_mobile/src/config/client/client.dart';
 import 'package:apex_mobile/src/config/router/app_router.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
@@ -14,6 +15,7 @@ class MainView extends StatelessWidget {
     return Scaffold(
       backgroundColor: const Color(0xFF022964),
       floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.white,
         onPressed: () {
           AutoRouter.of(context).push(const ChatRoute());
         },
@@ -43,8 +45,9 @@ class MainView extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                child: CircularProgressIndicator(
+                child: CupertinoActivityIndicator(
                   color: Colors.white,
+                  radius: 18,
                 ),
               );
             }
@@ -259,14 +262,14 @@ class MainViewBody extends StatelessWidget {
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
                             const Text(
-                              "Heart Rate",
+                              "Health Rate",
                               style: TextStyle(
                                 fontSize: 20,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),
                             Text(
-                              (fit.heartMinute ?? 0 * 4).toString(),
+                              (fit.heartMinute! * 4).toString(),
                               style: const TextStyle(
                                 fontSize: 25,
                                 fontWeight: FontWeight.bold,

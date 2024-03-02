@@ -23,6 +23,7 @@ final class DioClient {
 
   factory DioClient() => _instance;
 
+  /// Get fit data from the server
   Future<Fit> getFitData() async {
     try {
       final response = await _fitDio.get(
@@ -34,6 +35,22 @@ final class DioClient {
     }
   }
 
+  /// Get message from the server
+  Future<String> getMessage(String message) async {
+    try {
+      final response = await _dio.post(
+        '/process-message/',
+        data: {
+          'message': message,
+        },
+      );
+      return response.data['message'];
+    } on DioException catch (e) {
+      rethrow;
+    }
+  }
+
+  /// Send message to the server
   Future<void> uploadImageWithFormData(
     String path,
     FormData formData,
