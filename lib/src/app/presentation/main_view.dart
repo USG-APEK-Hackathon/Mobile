@@ -192,6 +192,7 @@ class MainView extends StatelessWidget {
                     width: double.infinity,
                     height: 120,
                     padding: const EdgeInsets.all(16),
+                    margin: const EdgeInsets.only(bottom: 20),
                     decoration: BoxDecoration(
                       color: Colors.white,
                       borderRadius: BorderRadius.circular(10),
@@ -234,6 +235,7 @@ class MainView extends StatelessWidget {
                         Spacer(),
                         Column(
                           mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
                           children: [
                             Text(
                               "150",
@@ -245,6 +247,66 @@ class MainView extends StatelessWidget {
                             ),
                             Text(
                               "+8.42",
+                              style: TextStyle(
+                                color: Colors.green,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: double.infinity,
+                    height: 120,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(10),
+                    ),
+                    child: const Row(
+                      children: [
+                        Row(
+                          children: [
+                            Icon(
+                              Icons.attach_money_rounded,
+                              color: Color(0xFF022964),
+                              size: 80,
+                            ),
+                            SizedBox(
+                              width: 20,
+                            ),
+                            Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Next Month\nPayment",
+                                  style: TextStyle(
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Spacer(),
+                        Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
+                            Text(
+                              "AZN95",
+                              style: TextStyle(
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                color: Color(0xFF022964),
+                              ),
+                            ),
+                            Text(
+                              "-5.93",
                               style: TextStyle(
                                 color: Colors.green,
                                 fontWeight: FontWeight.bold,
