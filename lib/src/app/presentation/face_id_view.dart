@@ -168,14 +168,14 @@ class _FaceIdViewState extends State<FaceIdView> {
                   if (_termsAndConditions) {
                     final client = DioClient();
                     final formData = FormData.fromMap({
-                      'file': await MultipartFile.fromFile(
+                      'image': await MultipartFile.fromFile(
                         _image!.path,
                         filename: 'face.jpg',
                       ),
                     });
 
                     await client.uploadImageWithFormData(
-                      '/face-verification',
+                      '/first-step/',
                       formData,
                     );
                     if (mounted)

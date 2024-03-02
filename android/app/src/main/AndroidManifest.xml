@@ -3,6 +3,7 @@
     <uses-permission android:name="android.permission.health.READ_HEART_RATE"/>
     <uses-permission android:name="android.permission.CAMERA"/>
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.INTERNET" />
     <!-- Check whether Health Connect is installed or not -->
     <queries>
         <package android:name="com.google.android.apps.healthdata" />
