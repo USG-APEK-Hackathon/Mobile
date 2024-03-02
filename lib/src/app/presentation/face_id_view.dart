@@ -2,8 +2,10 @@
 
 import 'dart:io';
 
+import 'package:apex_mobile/src/config/client/client.dart';
 import 'package:apex_mobile/src/config/router/app_router.dart';
 import 'package:auto_route/auto_route.dart';
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:image_picker/image_picker.dart';
@@ -159,15 +161,32 @@ class _FaceIdViewState extends State<FaceIdView> {
               ],
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 40, left: 20, right: 20, top: 10),
+              padding: const EdgeInsets.only(
+                  bottom: 40, left: 20, right: 20, top: 10),
               child: ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                   if (_termsAndConditions) {
-                    context.router.push(const MainRoute());
+                    final client = DioClient();
+                    final formData = FormData.fromMap({
+                      'file': await MultipartFile.fromFile(
+                        _image!.path,
+                        filename: 'face.jpg',
+                      ),
+                    });
+
+                    await client.uploadImageWithFormData(
+                      '/face-verification',
+                      formData,
+                    );
+                    if (mounted)
+                      context.router.push(
+                        const MainRoute(),
+                      );
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text("Please agree to the terms and conditions"),
+                        content:
+                            Text("Please agree to the terms and conditions"),
                       ),
                     );
                   }
