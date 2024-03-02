@@ -36,7 +36,9 @@ class MainView extends StatelessWidget {
           builder: (context, snapshot) {
             if (snapshot.connectionState == ConnectionState.waiting) {
               return const Center(
-                child: CircularProgressIndicator(),
+                child: CircularProgressIndicator(
+                  color: Colors.white,
+                ),
               );
             }
             if (snapshot.hasError) {
@@ -144,9 +146,9 @@ class MainViewBody extends StatelessWidget {
                       ),
                     ),
                     Text(
-                      fit.calorie.toString(),
+                      "${fit.calorie} kCal",
                       style: const TextStyle(
-                        fontSize: 22,
+                        fontSize: 17,
                         fontWeight: FontWeight.bold,
                         color: Color(0xFF022964),
                       ),
