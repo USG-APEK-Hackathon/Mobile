@@ -22,19 +22,19 @@ This mobile app is crafted with the goal of solving life insurance and telecommu
 The project is structured for scalability, maintainability, and ease of navigation. Here's an overview of the `lib/` directory, which houses the core of our application:
 
 lib/
-│
 ├── src/
-│ ├── app/
-│ │ ├── provider/ - State management and business logic.
-│ │ └── view/ - UI components for views and pages.
-│ │
-│ ├── core/
-│ │ ├── constants/ - Defines constants including colors, text styles, and configurations.
-│ │ └── utils/ - Utility functions and helpers.
-│ │
-│ └── features/ - Modular features of the app, each encapsulating a specific functionality.
+│   ├── app/
+│   │   ├── provider/ - State management and business logic.
+│   │   └── view/ - UI components for views and pages.
+│   │
+│   ├── core/
+│   │   ├── constants/ - Defines constants including colors, text styles, and configurations.
+│   │   └── utils/ - Utility functions and helpers.
+│   │
+│   └── features/ - Modular features of the app, each encapsulating a specific functionality.
 │
 └── main.dart - Entry point of the application.
+
 
 
 ### Key Directories:
